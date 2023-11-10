@@ -1,4 +1,6 @@
 name: Update Cachix Cache
+concurrency:
+  group: cache
 
 on:
   push:
