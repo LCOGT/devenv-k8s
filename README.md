@@ -23,4 +23,4 @@ index c7cb5ce..75410d4 100644
 ```
 
 Next time you do `devenv shell`, it will install all packages listed in [devenv](devenv.nix)
-in addition to any project specific.
+in addition to any project specific ones.
