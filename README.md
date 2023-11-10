@@ -25,6 +25,15 @@ index c7cb5ce..75410d4 100644
 Next time you do `devenv shell`, it will install all packages listed in [devenv](devenv.nix)
 in addition to any project specific ones.
 
+## Cache
+
+Some tools may require building. Run the following to setup the LCO Cachix Nix cache that will
+let you pull pre-built binaries. This only needs to be done once.
+
+```shell
+cachix use lco-public
+```
+
 ## Updates
 
 To pull in changes from upstream you need to run in the project that imports this:
