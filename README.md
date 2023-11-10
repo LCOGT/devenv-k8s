@@ -27,7 +27,7 @@ in addition to any project specific ones.
 
 ## Updates
 
-To pull in changes from upstream you need to run:
+To pull in changes from upstream you need to run in the project that imports this:
 
 ```shell
 devenv update
