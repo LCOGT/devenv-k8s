@@ -33,4 +33,4 @@ To pull in changes from upstream you need to run in the project that imports thi
 devenv update
 ```
 
-Or you can declaritively lock it to a specific ref. See https://devenv.sh/inputs/.
+Or you can declaritively lock it to a specific ref. See https://devenv.sh/reference/yaml-options/.
