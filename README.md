@@ -24,3 +24,13 @@ index c7cb5ce..75410d4 100644
 
 Next time you do `devenv shell`, it will install all packages listed in [devenv](devenv.nix)
 in addition to any project specific ones.
+
+## Updates
+
+To pull in changes from upstream you need to run:
+
+```shell
+devenv update
+```
+
+Or you can declaritively lock it to a specific ref. See https://devenv.sh/inputs/.
