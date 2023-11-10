@@ -27,7 +27,7 @@ in addition to any project specific ones.
 
 ## Cache
 
-Some tools may require building. Run the following to setup the LCO Cachix Nix cache that will
+Some tools may require compiling. Run the following to setup the LCO Cachix Nix cache that will
 let you pull pre-built binaries. This only needs to be done once.
 
 ```shell
