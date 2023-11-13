@@ -36,7 +36,7 @@ cachix use lco-public
 
 ## Updates
 
-To pull in changes from upstream you need to run in the project that imports this:
+To pull in changes from upstream you need to run the following in the project that imports this:
 
 ```shell
 devenv update
