@@ -1,6 +1,6 @@
 # devenv-k8s
 
-A reusable devenv w/ common tools needed for Kubernetes 
+A reusable [devenv](https://devenv.sh/) w/ common tools needed for Kubernetes 
 
 ## Usage
 
@@ -22,8 +22,17 @@ index c7cb5ce..75410d4 100644
 +  - k8s
 ```
 
-Next time you do `devenv shell`, it will install all packages listed in [devenv](devenv.nix)
+Next time you do `devenv shell`, it will install all packages listed in [devenv.nix](devenv.nix)
 in addition to any project specific ones.
+
+## Cache
+
+Some tools may require compiling. Run the following to setup the LCO Cachix Nix cache that will
+let you pull pre-built binaries. This only needs to be done once.
+
+```shell
+cachix use lco-public
+```
 
 ## Updates
 
