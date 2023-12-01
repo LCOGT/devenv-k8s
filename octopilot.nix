@@ -2,13 +2,13 @@
 
 pkgs.buildGoModule rec {
   pname = "octopilot";
-  version = "1.5.3";
+  version = "1.5.5";
 
   src = pkgs.fetchFromGitHub {
     owner = "dailymotion-oss";
     repo = "${pname}";
     rev = "v${version}";
-    hash = "sha256-mZIbny/Askd9yllaAxfxNd103KaVTP3kyiRNV/AUIvs=";
+    hash = "sha256-CtCB8iVJlcnb8cxBclqujhIg+AspUWII0EBtVD1ez64=";
   };
 
   vendorHash = null;

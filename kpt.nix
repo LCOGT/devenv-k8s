@@ -2,16 +2,16 @@
 
 pkgs.buildGoModule rec {
   pname = "kpt";
-  version = "1.0.0-beta.47";
+  version = "1.0.0-beta.48";
 
   src = pkgs.fetchFromGitHub {
     owner = "kptdev";
     repo = "${pname}";
     rev = "v${version}";
-    sha256 = "sha256-h+Ozah76UfgzPhYks2yRWd5gZrjO0XZ8UX01UGm2cYI=";
+    hash = "sha256-GHEk5nezva+26cpCrgriaGIL2PvSLWgC0UtmFkNHoDc=";
   };
 
-  vendorSha256 = "sha256-SCIalKqIeWA9rG15CcD6ogk6o+38/tLNMt7zpyYXDz4=";
+  vendorHash = "sha256-NQ/JqXokNmr8GlIhqTJb0JFyU2mAEXO+2y5vI79TuX4=";
 
   subPackages = [ "." ];
 
