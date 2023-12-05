@@ -22,7 +22,7 @@
 
   nixConfig = {
     extra-trusted-public-keys = ''
-      devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
+      "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
       lco-public.cachix.org-1:zSmLK7CkAehZ7QzTLZKt+5Y26Lr0w885GUB4GlT1SCg=
     '';
 
@@ -44,6 +44,9 @@
         # Per-system attributes can be defined here. The self' and inputs'
         # module parameters provide easy access to attributes of the same
         # system.
+
+        packages.kpt = inputs'.kpt.packages.default;
+        packages.octopilot = inputs'.octopilot.packages.default;
 
         devenv.shells.default = {
           name = "devenv-k8s";
