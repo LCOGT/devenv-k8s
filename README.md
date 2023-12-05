@@ -4,6 +4,12 @@ A reusable [devenv](https://devenv.sh/) w/ common tools needed for Kubernetes
 
 ## Usage
 
+```shell
+nix develop --impure
+```
+
+### Import
+
 To import this devenv into another, add the following to your `devenv.yaml`:
 
 ```diff
