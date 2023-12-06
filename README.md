@@ -5,7 +5,7 @@ A reusable [devenv](https://devenv.sh/) w/ common tools needed for Kubernetes
 ## Usage
 
 ```shell
-nix develop --impure
+nix develop github:LCOGT/devenv-k8s --impure
 ```
 
 ### Import
