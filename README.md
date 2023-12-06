@@ -4,6 +4,12 @@ A reusable [devenv](https://devenv.sh/) w/ common tools needed for Kubernetes
 
 ## Usage
 
+```shell
+nix develop --impure
+```
+
+### Import
+
 To import this devenv into another, add the following to your `devenv.yaml`:
 
 ```diff
@@ -17,13 +23,16 @@ index c7cb5ce..75410d4 100644
      url: github:NixOS/nixpkgs/nixpkgs-unstable
 +  k8s:
 +    url: git+https://github.com/LCOGT/devenv-k8s
-+    flake: false
++    flake: true
 +imports:
 +  - k8s
 ```
 
-Next time you do `devenv shell`, it will install all packages listed in [devenv.nix](devenv.nix)
-in addition to any project specific ones.
+Or if using a flake-parts, add this repo to inputs and follow
+https://devenv.sh/guides/using-with-flake-parts/#import-a-devenv-module
+
+Next time you do `devenv shell` or `nix develop --impure`, it will install all
+packages listed in [devenv.nix](devenv.nix) in addition to any project specific ones.
 
 ## Cache
 
@@ -43,3 +52,9 @@ devenv update
 ```
 
 Or you can declaritively lock it to a specific ref. See https://devenv.sh/reference/yaml-options/.
+
+For flakes,
+
+```shell
+nix flake update devenv-k8s
+```
