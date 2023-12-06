@@ -17,10 +17,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: nixbuild/nix-quick-install-action@v26
-        with:
-          nix_version: "2.19.2"
-          load_nixConfig: false
+      - name: install nix
+        run: sh <(curl -L https://nixos.org/nix/install) --no-daemon
 
       - uses: cachix/cachix-action@v12
         with:
