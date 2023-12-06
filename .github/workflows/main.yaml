@@ -19,6 +19,7 @@ jobs:
 
       - uses: nixbuild/nix-quick-install-action@v26
         with:
+          nix_version: "2.19.2"
           load_nixConfig: false
 
       - uses: cachix/cachix-action@v12
