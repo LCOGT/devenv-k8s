@@ -16,7 +16,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+
       - uses: nixbuild/nix-quick-install-action@v26
+        with:
+          load_nixConfig: false
+
       - uses: cachix/cachix-action@v12
         with:
           name: lco-public
