@@ -9,12 +9,12 @@
     mk-shell-bin.url = "github:rrbutani/nix-mk-shell-bin";
 
     kpt = {
-      url = "path:./kpt";
+      url = "./kpt";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     octopilot = {
-      url = "path:./octopilot";
+      url = "./octopilot";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
