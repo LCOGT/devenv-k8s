@@ -157,11 +157,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-tl+05LnmHU/E2z6CLnQbqMZHv34Qk0GxleGlQkpxqrs=",
-        "path": "/nix/store/p1rf5sya6cmjzajq37c6bnhb4g2m6ahq-source/kpt",
+        "path": "kpt",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/p1rf5sya6cmjzajq37c6bnhb4g2m6ahq-source/kpt",
+        "path": "kpt",
         "type": "path"
       }
     },
@@ -387,11 +387,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-RweJL6JX9OjVHZEt64hbqb0GcuGt/3LEqwDlvTP/PxM=",
-        "path": "/nix/store/p1rf5sya6cmjzajq37c6bnhb4g2m6ahq-source/octopilot",
+        "path": "octopilot",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/p1rf5sya6cmjzajq37c6bnhb4g2m6ahq-source/octopilot",
+        "path": "octopilot",
         "type": "path"
       }
     },
