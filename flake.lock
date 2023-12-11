@@ -381,33 +381,18 @@
         "flake-parts": "flake-parts_3",
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "octopilot": "octopilot_2"
+        ]
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-RweJL6JX9OjVHZEt64hbqb0GcuGt/3LEqwDlvTP/PxM=",
-        "path": "octopilot",
-        "type": "path"
-      },
-      "original": {
-        "path": "octopilot",
-        "type": "path"
-      }
-    },
-    "octopilot_2": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1701682992,
-        "narHash": "sha256-OEtN4lpeLmA7rw0A4YpVg7FTHZPelOks9gg7AcXB4YU=",
+        "lastModified": 1702066730,
+        "narHash": "sha256-aQ1uWxiFhJGzlW/rEbD1MrTg1Pg//wcjsOs6e2sFAuA=",
         "owner": "dailymotion-oss",
         "repo": "octopilot",
-        "rev": "472d535bae959cf48011ab4d1749f3cbb25c7b84",
+        "rev": "741949026ec13b15543c112387579929127bcd2e",
         "type": "github"
       },
       "original": {
         "owner": "dailymotion-oss",
-        "ref": "v1.6.0",
         "repo": "octopilot",
         "type": "github"
       }

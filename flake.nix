@@ -14,7 +14,7 @@
     };
 
     octopilot = {
-      url = "path:octopilot";
+      url = "github:dailymotion-oss/octopilot";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
