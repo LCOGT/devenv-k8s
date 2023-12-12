@@ -40,7 +40,7 @@
 
       systems = [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin" ];
 
-      perSystem = { config, self', inputs', pkgs, system, ... }: {
+      perSystem = { config, self', inputs', pkgs, system, lib, ... }: {
         # Per-system attributes can be defined here. The self' and inputs'
         # module parameters provide easy access to attributes of the same
         # system.
@@ -52,8 +52,8 @@
           name = "devenv-k8s";
 
           imports = [
-            # This is just like the imports in devenv.nix.
-            # See https://devenv.sh/guides/using-with-flake-parts/#import-a-devenv-module
+            ./skaffold-builder.nix
+            ./cd.nix
           ];
 
           # https://devenv.sh/packages/
@@ -65,26 +65,11 @@
             pkgs.kubeseal
             pkgs.kubernetes-helm
             pkgs.kustomize
+            pkgs.jq
 
             inputs'.kpt.packages.default
             inputs'.octopilot.packages.default
           ];
-
-          scripts.skaffold-builder-buildx.exec = ''
-            set -ex
-
-            args=""
-
-            if test "$PUSH_IMAGE" = true; then
-              args+="--push "
-            fi
-
-            if test -n "$PLATFORMS"; then
-              args+="--platform $PLATFORMS "
-            fi
-
-            docker buildx build "$BUILD_CONTEXT" --tag $IMAGE $args $SKAFFOLD_BUILDX_ARGS
-          '';
 
           # See full reference at https://devenv.sh/reference/options/
 

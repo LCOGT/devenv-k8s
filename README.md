@@ -4,57 +4,66 @@ A reusable [devenv](https://devenv.sh/) w/ common tools needed for Kubernetes
 
 ## Usage
 
+For a quick one-off shell with all the tools:
+
 ```shell
 nix develop github:LCOGT/devenv-k8s --impure
 ```
 
 ### Import
 
-To import this devenv into another, add the following to your `devenv.yaml`:
+Assuming you're using flake-parts, add the following to your `flake.nix`:
 
 ```diff
-diff --git a/devenv.yaml b/devenv.yaml
-index c7cb5ce..75410d4 100644
---- a/devenv.yaml
-+++ b/devenv.yaml
-@@ -1,3 +1,8 @@
- inputs:
-   nixpkgs:
-     url: github:NixOS/nixpkgs/nixpkgs-unstable
-+  k8s:
-+    url: git+https://github.com/LCOGT/devenv-k8s
-+    flake: true
-+imports:
-+  - k8s
+diff --git a/flake.nix b/flake.nix
+index 23e54fd..070e011 100644
+--- a/flake.nix
++++ b/flake.nix
+@@ -5,10 +5,12 @@
+     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+     devenv.url = "github:cachix/devenv";
+     nix2container.url = "github:nlewo/nix2container";
+     nix2container.inputs.nixpkgs.follows = "nixpkgs";
+     mk-shell-bin.url = "github:rrbutani/nix-mk-shell-bin";
++
++    devenv-k8s.url = "github:LCOGT/devenv-k8s";
+   };
+ 
+   nixConfig = {
+     extra-trusted-public-keys = "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=";
+     extra-substituters = "https://devenv.cachix.org";
+@@ -24,11 +26,11 @@
+       perSystem = { config, self', inputs', pkgs, system, ... }: {
+ 
+         devenv.shells.default = {
+           # https://devenv.sh/reference/options/
+           packages = [
+-
++            inputs'.devenv-k8s.devShells.default
+           ];
+ 
+         };
+ 
+       };
 ```
+Next `nix develop --impure`, it will install the packages & scripts in this devenv
+in addition to any project specific ones.
 
-Or if using a flake-parts, add this repo to inputs and follow
-https://devenv.sh/guides/using-with-flake-parts/#import-a-devenv-module
-
-Next time you do `devenv shell` or `nix develop --impure`, it will install all
-packages listed in [devenv.nix](devenv.nix) in addition to any project specific ones.
-
-## Cache
-
-Some tools may require compiling. Run the following to setup the LCO Cachix Nix cache that will
-let you pull pre-built binaries. This only needs to be done once.
-
-```shell
-cachix use lco-public
-```
-
-## Updates
+### Updates
 
 To pull in changes from upstream you need to run the following in the project that imports this:
 
 ```shell
-devenv update
-```
-
-Or you can declaritively lock it to a specific ref. See https://devenv.sh/reference/yaml-options/.
-
-For flakes,
-
-```shell
 nix flake update devenv-k8s
 ```
+
+## Cache
+
+Some tools may require compiling. You can setup Nix to pull from a pre-built
+binary cache. This only needs to be done once:
+
+```shell
+nix profile install nixpkgs#cachix
+cachix use lco-public
+```
+
