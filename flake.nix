@@ -39,14 +39,23 @@
       flakeModules.default = importApply ./flake-module.nix { inherit withSystem; };
     in
     {
-      systems = [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin" ];
-
       imports = [
         flakeModules.default
       ];
 
       flake = {
         inherit flakeModules;
+      };
+
+      systems = [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin" ];
+
+      perSystem = { inputs', ...}: {
+
+        packages = {
+          kpt = inputs'.kpt.packages.default;
+          octopilot = inputs'.octopilot.packages.default;
+        };
+
       };
     });
 }

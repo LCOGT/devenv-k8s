@@ -5,9 +5,7 @@ localFlake:
     inputs.devenv.flakeModule
   ];
 
-  perSystem = { inputs', config, pkgs, ... }: {
-    packages.kpt = inputs'.kpt.packages.default;
-    packages.octopilot = inputs'.octopilot.packages.default;
+  perSystem = { system, pkgs, ... }: {
 
     devenv.shells.default = {
       name = "devenv-k8s";
@@ -27,10 +25,10 @@ localFlake:
         pkgs.kubernetes-helm
         pkgs.kustomize
         pkgs.jq
-
+      ] ++ localFlake.withSystem system ({config, ...}: [
         config.packages.kpt
         config.packages.octopilot
-      ];
+      ]);
     };
   };
 }
