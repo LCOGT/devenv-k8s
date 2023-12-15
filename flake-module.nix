@@ -25,9 +25,9 @@ localFlake:
         pkgs.kubernetes-helm
         pkgs.kustomize
         pkgs.jq
-      ] ++ localFlake.withSystem system ({config, ...}: [
-        config.packages.kpt
-        config.packages.octopilot
+      ] ++ localFlake.withSystem system ({self', ...}: [
+        self'.packages.kpt
+        self'.packages.octopilot
       ]);
     };
   };
