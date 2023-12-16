@@ -21,15 +21,9 @@
   };
 
   nixConfig = {
-    extra-trusted-public-keys = ''
-      "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
-      lco-public.cachix.org-1:zSmLK7CkAehZ7QzTLZKt+5Y26Lr0w885GUB4GlT1SCg=
-    '';
+    extra-trusted-public-keys = "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw= lco-public.cachix.org-1:zSmLK7CkAehZ7QzTLZKt+5Y26Lr0w885GUB4GlT1SCg=";
 
-    extra-substituters = ''
-      https://devenv.cachix.org
-      https://lco-public.cachix.org
-    '';
+    extra-substituters = "https://devenv.cachix.org https://lco-public.cachix.org";
   };
 
   outputs = inputs@{ flake-parts, ... }:
