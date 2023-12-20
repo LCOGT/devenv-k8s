@@ -1,7 +1,13 @@
 localFlake:
 { ... }:
 let
-  devenvModule = { ... }@args: localFlake.inputs.devenv.flakeModule (args // {inputs = localFlake.inputs // args.inputs;});
+  devenvModule = { ... }@args: localFlake.inputs.devenv.flakeModule (
+    args // {
+      inputs = {
+        inherit (localFlake.inputs) nix2container mk-shell-bin;
+      } // args.inputs;
+    }
+  );
 in
 {
   imports = [
