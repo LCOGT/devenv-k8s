@@ -1,8 +1,11 @@
 localFlake:
-{ inputs, ... }:
+{ ... }:
+let
+  devenvModule = { ... }@args: localFlake.inputs.devenv.flakeModule (args // {inputs = localFlake.inputs // args.inputs;});
+in
 {
   imports = [
-    localFlake.inputs.devenv.flakeModule
+    devenvModule
   ];
 
   perSystem = { system, pkgs, ... }: {
