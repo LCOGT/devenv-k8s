@@ -2,7 +2,7 @@ localFlake:
 { inputs, ... }:
 {
   imports = [
-    inputs.devenv.flakeModule
+    localFlake.inputs.devenv.flakeModule
   ];
 
   perSystem = { system, pkgs, ... }: {

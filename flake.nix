@@ -30,7 +30,7 @@
     flake-parts.lib.mkFlake { inherit inputs; } ({ withSystem, flake-parts-lib, ...}:
     let
       inherit (flake-parts-lib) importApply;
-      flakeModules.default = importApply ./flake-module.nix { inherit withSystem; };
+      flakeModules.default = importApply ./flake-module.nix { inherit inputs withSystem; };
     in
     {
       imports = [
