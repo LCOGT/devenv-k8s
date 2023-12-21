@@ -12,42 +12,45 @@ nix develop github:LCOGT/devenv-k8s --impure
 
 ### Import
 
-Assuming you're using flake-parts, add the following to your `flake.nix`:
+Assuming you are using flake-parts, add the following to your `flake.nix`:
 
 ```diff
-diff --git a/flake.nix b/flake.nix
-index 23e54fd..070e011 100644
---- a/flake.nix
-+++ b/flake.nix
-@@ -5,10 +5,12 @@
-     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-     devenv.url = "github:cachix/devenv";
-     nix2container.url = "github:nlewo/nix2container";
-     nix2container.inputs.nixpkgs.follows = "nixpkgs";
-     mk-shell-bin.url = "github:rrbutani/nix-mk-shell-bin";
-+
-+    devenv-k8s.url = "github:LCOGT/devenv-k8s";
-   };
- 
-   nixConfig = {
-     extra-trusted-public-keys = "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=";
-     extra-substituters = "https://devenv.cachix.org";
-@@ -24,11 +26,11 @@
-       perSystem = { config, self', inputs', pkgs, system, ... }: {
- 
-         devenv.shells.default = {
-           # https://devenv.sh/reference/options/
-           packages = [
--
-+            inputs'.devenv-k8s.devShells.default
-           ];
- 
-         };
- 
-       };
+{
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
++   devenv-k8s.url = "github:LCOGT/devenv-k8s";
+  };
+
+  outputs = inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
++       inputs.devenv-k8s.flakeModules.default
+      ];
+
+      systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
+
+      perSystem = { lib, config, ... }: {
+
++        config.devenv.shells.default = {
++         # ...
+        };
+      };
+    };
+}
 ```
+
 Next `nix develop --impure`, it will install the packages & scripts in this devenv
 in addition to any project specific ones.
+
+### Templates
+
+For a new project you can simply use one of the provided templates to get started:
+
+```sh
+nix flake init -t github:LCOGT/devenv-k8s#app-repo
+```
 
 ### Updates
 
