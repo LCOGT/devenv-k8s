@@ -33,9 +33,9 @@ Assuming you are using flake-parts, add the following to your `flake.nix`:
 
       perSystem = { lib, config, ... }: {
 
-+        config.devenv.shells.default = {
++       config.devenv.shells.default = {
 +         # ...
-        };
++       };
       };
     };
 }
