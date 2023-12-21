@@ -52,5 +52,37 @@
         };
 
       };
+
+      flake = {
+        templates = {
+
+          app-repo = {
+            path = ./templates/app-repo;
+            description = "Application source repo";
+            welcomeText = ''
+              Add the following to `.gitignore`:
+
+              ```sh
+                echo .devenv >> .gitignore
+                echo .pre-commit-hook.yaml >> .gitignore
+              ```
+            '';
+          };
+
+          deploy-repo = {
+            path = ./templates/deploy-repo;
+            description = "GitOps deploy repo";
+            welcomeText = ''
+              Add the following to `.gitignore`:
+
+              ```sh
+                echo .devenv >> .gitignore
+                echo .pre-commit-hook.yaml >> .gitignore
+                echo '**/secret*.yaml' >> .gitignore
+              ```
+            '';
+          };
+        };
+      };
     });
 }
