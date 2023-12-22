@@ -5,6 +5,9 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     devenv-k8s.url = "github:LCOGT/devenv-k8s";
+
+    nixpkgs.follows = "devenv-k8s/nixpkgs";
+    flake-parts.follows = "devenv-k8s/flake-parts";
   };
 
   outputs = inputs@{ flake-parts, ... }:
