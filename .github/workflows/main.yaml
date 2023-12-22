@@ -27,6 +27,7 @@ jobs:
           name: lco-public
           extraPullNames: devenv
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          skipAddingSubstituter: true
 
       - name: Build
         run: nix develop --impure
