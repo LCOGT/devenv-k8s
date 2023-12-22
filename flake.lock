@@ -141,14 +141,19 @@
         ]
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-tl+05LnmHU/E2z6CLnQbqMZHv34Qk0GxleGlQkpxqrs=",
-        "path": "kpt",
-        "type": "path"
+        "dir": "kpt",
+        "lastModified": 1703207029,
+        "narHash": "sha256-uHhULnMfHa8Umd5DoZJ8LUczL5kUCKK8yaubUE+/sBo=",
+        "owner": "LCOGT",
+        "repo": "devenv-k8s",
+        "rev": "624540eb192f882d9c4303d7f62f07a3f901fd89",
+        "type": "github"
       },
       "original": {
-        "path": "kpt",
-        "type": "path"
+        "dir": "kpt",
+        "owner": "LCOGT",
+        "repo": "devenv-k8s",
+        "type": "github"
       }
     },
     "kpt_2": {

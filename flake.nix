@@ -10,7 +10,7 @@
     mk-shell-bin.url = "github:rrbutani/nix-mk-shell-bin";
 
     kpt = {
-      url = "path:kpt";
+      url = "github:LCOGT/devenv-k8s?dir=kpt";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
