@@ -12,6 +12,7 @@
     kpt = {
       url = "path:kpt";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
 
     octopilot = {
@@ -64,7 +65,7 @@
 
               ```sh
                 echo .devenv >> .gitignore
-                echo .pre-commit-hook.yaml >> .gitignore
+                echo .pre-commit-config.yaml >> .gitignore
               ```
             '';
           };
@@ -77,7 +78,7 @@
 
               ```sh
                 echo .devenv >> .gitignore
-                echo .pre-commit-hook.yaml >> .gitignore
+                echo .pre-commit-config.yaml >> .gitignore
                 echo '**/secret*.yaml' >> .gitignore
               ```
             '';
