@@ -10,6 +10,18 @@
     flake-parts.follows = "devenv-k8s/flake-parts";
   };
 
+  nixConfig = {
+    extra-substituters = [
+      "https://devenv.cachix.org"
+      "https://lco-public.cachix.org"
+    ];
+
+    extra-trusted-public-keys = [
+      "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+      "lco-public.cachix.org-1:zSmLK7CkAehZ7QzTLZKt+5Y26Lr0w885GUB4GlT1SCg="
+    ];
+  };
+
   outputs = inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
