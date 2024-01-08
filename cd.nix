@@ -26,6 +26,13 @@
       popd
     '';
 
+    scripts.kustomize-build-prod.exec = ''
+      set -xe
+      pushd $DEVENV_ROOT
+      kustomize build prod/ --output output/prod/manifest.yaml
+      popd
+    '';
+
     scripts.cd-update-staging.exec = ''
       set -ex
 
@@ -39,6 +46,8 @@
         exit 1
       fi
 
+      pushd $DEVENV_ROOT
+
       pushd staging/
 
       kpt pkg update base@$2
@@ -51,6 +60,24 @@
       popd
 
       kustomize build staging/ --output output/staging/manifest.yaml
+      popd
+    '';
+
+    scripts.cd-update-prod.exec = ''
+      set -ex
+
+      if test -z "$1"; then
+        echo "first argument should be git commit hash of staging"
+        exit 1
+      fi
+
+      pushd $DEVENV_ROOT
+
+      kpt pkg update prod/base@$2
+      kpt pkg update prod/cd-set-images@$2
+
+      kustomize build prod/ --output output/prod/manifest.yaml
+      popd
     '';
   };
 }
