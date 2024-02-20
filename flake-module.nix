@@ -34,6 +34,7 @@ in
         pkgs.kubernetes-helm
         pkgs.kustomize
         pkgs.jq
+        pkgs.ctlptl
       ] ++ localFlake.withSystem system ({self', ...}: [
         self'.packages.kpt
         self'.packages.octopilot
