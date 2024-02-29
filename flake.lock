@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "deploy-repo-template": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1709061350,
+        "narHash": "sha256-z7qL9Yghv3F73sBE8i+o0UAob3eDeeku668kEZlVW88=",
+        "ref": "refs/heads/main",
+        "rev": "fba0d91943542192e5506d886531d66f03573031",
+        "revCount": 8,
+        "type": "git",
+        "url": "https://github.com/LCOGT/deploy-repo-template.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://github.com/LCOGT/deploy-repo-template.git"
+      }
+    },
     "devenv": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -400,6 +416,7 @@
     },
     "root": {
       "inputs": {
+        "deploy-repo-template": "deploy-repo-template",
         "devenv": "devenv",
         "flake-parts": "flake-parts",
         "kpt": "kpt",
