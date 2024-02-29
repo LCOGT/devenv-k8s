@@ -83,15 +83,6 @@
           deploy-repo = {
             path = inputs.deploy-repo-template.outPath;
             description = "GitOps deploy repo";
-            welcomeText = ''
-              Add the following to `.gitignore`:
-
-              ```sh
-                echo .devenv >> .gitignore
-                echo .pre-commit-config.yaml >> .gitignore
-                echo '**/secret*.yaml' >> .gitignore
-              ```
-            '';
           };
         };
       };
