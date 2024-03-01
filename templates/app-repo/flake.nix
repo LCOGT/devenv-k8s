@@ -45,7 +45,13 @@
 
           # https://devenv.sh/reference/options/#entershell
           enterShell = ''
-            echo Hello
+            export KUBECONFIG="`pwd`/local-kubeconfig"
+
+            echo "Setting KUBECONFIG=$KUBECONFIG"
+            echo
+            echo "This is done to sandbox Kuberenetes tools (kubectl, skaffold, etc) to the local K8s cluster for this project."
+            echo "If you would like to use an existing context or make the local cluster usable from other shells"
+            echo "then run 'unset KUBECONFIG' before creating the local cluster."
           '';
         };
       };
