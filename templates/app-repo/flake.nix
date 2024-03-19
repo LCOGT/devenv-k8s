@@ -38,6 +38,7 @@
         # https://devenv.sh/basics/
         # Enter using `nix develop --impure`
         config.devenv.shells.default = {
+
           # https://devenv.sh/packages/
           packages = [
 
