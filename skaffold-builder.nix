@@ -14,7 +14,7 @@
         args+="--platform $PLATFORMS "
       fi
 
-      docker buildx build "$BUILD_CONTEXT" --tag $IMAGE $args $SKAFFOLD_BUILDX_ARGS
+      docker buildx build "$BUILD_CONTEXT" --tag $IMAGE $args $SKAFFOLD_BUILDX_ARGS "$@"
     '';
   };
 }
