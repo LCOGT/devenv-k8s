@@ -29,7 +29,6 @@ in
         pkgs.git
         pkgs.kubectl
         pkgs.kind
-        pkgs.skaffold
         pkgs.kubeseal
         pkgs.kubernetes-helm
         pkgs.kustomize
@@ -38,6 +37,7 @@ in
       ] ++ localFlake.withSystem system ({self', ...}: [
         self'.packages.kpt
         self'.packages.octopilot
+        self'.packages.skaffold
       ]);
     };
   };

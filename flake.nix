@@ -15,9 +15,16 @@
       inputs.flake-parts.follows = "flake-parts";
     };
 
+    skaffold = {
+      url = "github:jashandeep-sohi/skaffold";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
+
     octopilot = {
       url = "github:dailymotion-oss/octopilot";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
 
     deploy-repo-template =  {
@@ -60,6 +67,7 @@
         packages = {
           kpt = inputs'.kpt.packages.default;
           octopilot = inputs'.octopilot.packages.default;
+          skaffold = inputs'.skaffold.packages.default;
         };
 
       };
