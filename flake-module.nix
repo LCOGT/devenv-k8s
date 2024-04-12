@@ -26,6 +26,7 @@ in
 
       # https://devenv.sh/packages/
       packages = [
+        pkgs.bashInteractive
         pkgs.git
         pkgs.kubectl
         pkgs.kind
