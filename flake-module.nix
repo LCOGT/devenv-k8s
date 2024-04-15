@@ -40,6 +40,10 @@ in
         self'.packages.octopilot
         self'.packages.skaffold
       ]);
+
+      enterShell = ''
+        export SHELL=${pkgs.bashInteractive}/bin/bash
+      '';
     };
   };
 }
