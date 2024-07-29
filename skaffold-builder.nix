@@ -8,6 +8,8 @@
 
       if test "$PUSH_IMAGE" = true; then
         args+="--push "
+      else
+        args+="--load "
       fi
 
       if test -n "$PLATFORMS"; then
