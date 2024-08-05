@@ -22,7 +22,7 @@
     };
 
     octopilot = {
-      url = "github:dailymotion-oss/octopilot";
+      url = "github:dailymotion-oss/octopilot/v1.12.10";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };

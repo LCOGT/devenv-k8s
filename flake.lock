@@ -545,15 +545,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1711718101,
-        "narHash": "sha256-bMeByl+3OdGsFcHA2fE37IvSbcG81SYhuruZzJ/YPdA=",
+        "lastModified": 1722862625,
+        "narHash": "sha256-WyUWkkDCmpKppwnh8mtEcHVHjlaxWQ4H3IQyumwv720=",
         "owner": "dailymotion-oss",
         "repo": "octopilot",
-        "rev": "319bb180ec99b5a8ac5d23d75dedfeb61d5feeaf",
+        "rev": "d1288117cf51ef31b3a1463a6440ae698462cbd6",
         "type": "github"
       },
       "original": {
         "owner": "dailymotion-oss",
+        "ref": "v1.12.10",
         "repo": "octopilot",
         "type": "github"
       }
