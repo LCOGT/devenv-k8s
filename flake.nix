@@ -2,7 +2,7 @@
   description = "A devenv with common tools needed for K8s, GitOps, etc.";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:cachix/devenv-nixpkgs/rolling";
     flake-parts.url = "github:hercules-ci/flake-parts";
     devenv.url = "github:cachix/devenv";
     nix2container.url = "github:nlewo/nix2container";
