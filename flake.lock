@@ -33,11 +33,11 @@
     "deploy-repo-template": {
       "flake": false,
       "locked": {
-        "lastModified": 1724949886,
-        "narHash": "sha256-QWbhBLY847eR8Ez+hmbBQwRH/mGgj6RjaE5mloXKUS4=",
+        "lastModified": 1725037657,
+        "narHash": "sha256-p1ZfPG60DqmcUGJX8rkCVFr0Wh7ZVLCn/BoM6IGTbOo=",
         "ref": "refs/heads/main",
-        "rev": "c8a3e5cfbeb153a11d1652a33d7d70e3c5344e8f",
-        "revCount": 16,
+        "rev": "82058b4c22070bdb386e13b0edadb45742dc3b2e",
+        "revCount": 17,
         "type": "git",
         "url": "https://github.com/LCOGT/deploy-repo-template.git"
       },
