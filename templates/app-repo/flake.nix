@@ -50,7 +50,7 @@
 
             echo "Setting KUBECONFIG=$KUBECONFIG"
             echo
-            echo "This is done to sandbox Kuberenetes tools (kubectl, skaffold, etc) to the local K8s cluster for this project."
+            echo "This is done to sandbox Kubernetes tools (kubectl, skaffold, etc) to the local K8s cluster for this project."
             echo "If you would like to use a local K8s cluster across multiple projects, then set 'KUBECONFIG' to a common path"
             echo "in both projects before running the command to create the local cluster."
           '';
