@@ -16,7 +16,14 @@ in
 
   perSystem = { system, pkgs, ... }: {
 
-    devenv.shells.default = {
+    devenv.shells.default = let
+      kustomize = pkgs.kustomize.overrideAttrs (prevAttrs: {
+        postPatch = ''
+          substituteInPlace kustomize/commands/build/flagenableplugins.go \
+            --replace 'false,' 'true,'
+        '';
+      });
+    in {
       name = "devenv-k8s";
 
       imports = [
@@ -32,7 +39,7 @@ in
         pkgs.kind
         pkgs.kubeseal
         pkgs.kubernetes-helm
-        pkgs.kustomize
+        kustomize
         pkgs.jq
         pkgs.ctlptl
       ] ++ localFlake.withSystem system ({self', ...}: [

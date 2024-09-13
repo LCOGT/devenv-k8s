@@ -7,7 +7,7 @@
         name = "Ensure staging kustomization output is up to date";
         pass_filenames = false;
         raw.always_run = true;
-        entry = "${pkgs.kustomize}/bin/kustomize build staging/ --output output/staging/manifest.yaml";
+        entry = "kustomize build staging/ --output output/staging/manifest.yaml";
       };
 
       kustomize-build-prod = {
@@ -15,7 +15,7 @@
         name = "Ensure prod kustomization output is up to date";
         pass_filenames = false;
         raw.always_run = true;
-        entry = "${pkgs.kustomize}/bin/kustomize build prod/ --output output/prod/manifest.yaml";
+        entry = "kustomize build prod/ --output output/prod/manifest.yaml";
       };
     };
 
