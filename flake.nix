@@ -81,10 +81,9 @@
             welcomeText = ''
               Add the following to `.gitignore`:
 
-                .devenv
-                .pre-commit-config.yaml
-                local-kubeconfig
-              ```
+              .devenv
+              .pre-commit-config.yaml
+              local-kubeconfig
             '';
           };
 
