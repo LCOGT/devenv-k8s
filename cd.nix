@@ -50,7 +50,7 @@
 
       pushd staging/
 
-      kpt pkg update base@$2
+      kpt pkg update --strategy force-delete-replace base@$2
 
       if test -f "$1"; then
         pushd cd-set-images
@@ -73,8 +73,8 @@
 
       pushd $DEVENV_ROOT
 
-      kpt pkg update prod/base@$2
-      kpt pkg update prod/cd-set-images@$2
+      kpt pkg update --strategy force-delete-replace prod/base@$2
+      kpt pkg update --strategy force-delete-replace prod/cd-set-images@$2
 
       kustomize build prod/ --output output/prod/manifest.yaml
       popd
