@@ -75,6 +75,15 @@
           skaffold = inputs'.skaffold.packages.default;
         };
 
+        devenv.shells.default = {
+
+          devenv.root =
+            let
+              devenvRootFileContent = builtins.readFile inputs.devenv-root.outPath;
+            in
+            pkgs.lib.mkIf (devenvRootFileContent != "") devenvRootFileContent;
+        };
+
       };
 
       flake = {

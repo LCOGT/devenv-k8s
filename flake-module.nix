@@ -26,12 +26,6 @@ in
     in {
       name = "devenv-k8s";
 
-      devenv.root =
-        let
-          devenvRootFileContent = builtins.readFile localFlake.inputs.devenv-root.outPath;
-        in
-        pkgs.lib.mkIf (devenvRootFileContent != "") devenvRootFileContent;
-
       imports = [
         ./skaffold-builder.nix
         ./cd.nix

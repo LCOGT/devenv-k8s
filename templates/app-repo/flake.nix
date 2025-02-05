@@ -2,6 +2,11 @@
   description = "Description for the project";
 
   inputs = {
+    devenv-root = {
+      url = "file+file:///dev/null";
+      flake = false;
+    };
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     devenv-k8s.url = "github:LCOGT/devenv-k8s";
@@ -38,6 +43,13 @@
         # https://devenv.sh/basics/
         # Enter using `nix develop --impure`
         config.devenv.shells.default = {
+
+          # use direnv without --impure
+          devenv.root =
+            let
+              devenvRootFileContent = builtins.readFile inputs.devenv-root.outPath;
+            in
+            pkgs.lib.mkIf (devenvRootFileContent != "") devenvRootFileContent;
 
           # https://devenv.sh/packages/
           packages = [
