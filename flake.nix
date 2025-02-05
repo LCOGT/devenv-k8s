@@ -2,6 +2,11 @@
   description = "A devenv with common tools needed for K8s, GitOps, etc.";
 
   inputs = {
+    devenv-root = {
+      url = "file+file:///dev/null";
+      flake = false;
+    };
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     devenv.url = "github:cachix/devenv";
@@ -62,7 +67,7 @@
 
       systems = [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin" ];
 
-      perSystem = { inputs', ...}: {
+      perSystem = { pkgs, inputs', ...}: {
 
         packages = {
           kpt = inputs'.kpt.packages.default;
