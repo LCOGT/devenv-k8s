@@ -1,0 +1,4 @@
+apiVersion: ctlptl.dev/v1alpha1
+kind: Registry
+name: devenv-k8s
+port: 12316

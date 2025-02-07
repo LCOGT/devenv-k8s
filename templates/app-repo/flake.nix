@@ -51,21 +51,14 @@
             in
             pkgs.lib.mkIf (devenvRootFileContent != "") devenvRootFileContent;
 
+          # setup local development cluster
+          devenv-k8s.local-cluster.enable = true;
+
           # https://devenv.sh/packages/
           packages = [
 
           ];
 
-          # https://devenv.sh/reference/options/#entershell
-          enterShell = ''
-            export KUBECONFIG="`pwd`/local-kubeconfig"
-
-            echo "Setting KUBECONFIG=$KUBECONFIG"
-            echo
-            echo "This is done to sandbox Kubernetes tools (kubectl, skaffold, etc) to the local K8s cluster for this project."
-            echo "If you would like to use a local K8s cluster across multiple projects, then set 'KUBECONFIG' to a common path"
-            echo "in both projects before running the command to create the local cluster."
-          '';
         };
       };
 
