@@ -1,0 +1,30 @@
+apiVersion: kpt.dev/v1
+kind: RenderHelmChart
+metadata: # kpt-merge: /example
+  name: ingress-nginx
+  annotations:
+    config.kubernetes.io/local-config: "true"
+    internal.kpt.dev/upstream-identifier: kpt.dev|RenderHelmChart|default|example
+# See https://catalog.kpt.dev/render-helm-chart/v0.2/
+helmCharts:
+  - chartArgs:
+      repo: https://kubernetes.github.io/ingress-nginx
+      name: ingress-nginx
+      version: 4.12.0
+    templateOptions:
+      apiVersions:
+        - 1.26.15
+      releaseName: ingress-nginx
+      namespace: ingresss-nginx
+      includeCRDs: true
+      skipTests: true
+      values:
+        valuesInline:
+          # Chart values go here
+          controller:
+            service:
+              type: NodePort
+              externalTrafficPolicy: Local
+              nodePorts:
+                http: "30080"
+                https: "30443"

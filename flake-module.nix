@@ -29,7 +29,7 @@ in
       imports = [
         ./skaffold-builder.nix
         ./cd.nix
-        ./local-cluster.nix
+        ./local-cluster
       ];
 
       # https://devenv.sh/packages/

@@ -16,6 +16,7 @@ in {
       local-cluster-up.exec = ''
         set -ex
         ctlptl apply -f "${./local-cluster-registry.yaml}" -f "${./local-cluster.yaml}"
+        kubectl apply -k "${./ingress-nginx}"
         kubectl cluster-info
       '';
 
