@@ -99,7 +99,7 @@
 
               .devenv  
               .pre-commit-config.yaml  
-              local-kubeconfig  
+              .direnv  
             '';
           };
 
