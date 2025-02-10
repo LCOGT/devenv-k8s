@@ -16,7 +16,7 @@ in {
 
       ${if !cfg.dashboard.disable then ''
         echo ""
-        echo "K8s dashboard running at http://k8s.local.lco.earth"
+        echo "K8s dashboard running at https://k8s.local.lco.earth"
         echo ""
       '' else ""}
     '';
@@ -27,10 +27,16 @@ in {
         before = [ "devenv:enterShell" ];
       };
 
+      "devenv-k8s:local-cluster:updateLocalLcoEarthCert" = lib.mkIf (!cfg.dashboard.disable) {
+        exec = "local-cluster-update-local-lco-earth-cert";
+        before = [ "devenv-k8s:local-cluster:setupNginxIngress" ];
+      };
+
       "devenv-k8s:local-cluster:setupK8sDashboard" = lib.mkIf (!cfg.dashboard.disable) {
         exec = "local-cluster-k8s-dashboard-up";
         before = [ "devenv-k8s:local-cluster:setupNginxIngress" ];
       };
+
     };
 
     scripts = {
@@ -68,6 +74,11 @@ in {
       local-cluster-k8s-dashboard-down.exec = ''
         set -ex -o pipefail
         kustomize build "${./dash}" | kubectl delete -f -
+      '';
+
+      local-cluster-update-local-lco-earth-cert.exec = ''
+        set -ex
+        kubectl apply -f https://raw.githubusercontent.com/LCOGT/local-lco-earth-cert/refs/heads/main/tls.yaml
       '';
     };
   };
