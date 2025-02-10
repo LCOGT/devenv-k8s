@@ -77,6 +77,8 @@
 
         devenv.shells.default = {
 
+          #devenv-k8s.local-cluster.enable = true;
+
           devenv.root =
             let
               devenvRootFileContent = builtins.readFile inputs.devenv-root.outPath;

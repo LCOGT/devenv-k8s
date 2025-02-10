@@ -1,0 +1,17 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/master-standalone/service.json
+apiVersion: v1
+kind: Service
+metadata: # kpt-merge: /example
+  name: caddy
+  labels:
+    app.kubernetes.io/component: caddy
+  annotations:
+    internal.kpt.dev/upstream-identifier: '|Service|default|example'
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/component: caddy
+  ports:
+    - name: http
+      port: 80
+      targetPort: "http"
