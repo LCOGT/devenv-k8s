@@ -58,8 +58,8 @@ in {
 
       local-cluster-nginx-ingress-up.exec = ''
         set -ex -o pipefail
-        kustomize build "${./ingress-nginx}" | kubectl apply -f -
-        kubectl apply -f "${./configmap-coredns.yaml}"
+        kustomize build "${./ingress-nginx}" | kubectl apply --server-side -f -
+        kubectl apply --server-side --force-conflicts -f "${./configmap-coredns.yaml}"
       '';
 
       local-cluster-nginx-ingress-down.exec = ''
@@ -70,7 +70,7 @@ in {
 
       local-cluster-k8s-dashboard-up.exec = ''
         set -ex -o pipefail
-        kustomize build "${./dash}" | kubectl apply -f -
+        kustomize build "${./dash}" | kubectl apply --server-side -f -
       '';
 
       local-cluster-k8s-dashboard-down.exec = ''
@@ -80,7 +80,7 @@ in {
 
       local-cluster-update-local-lco-earth-cert.exec = ''
         set -ex
-        kubectl apply -f https://raw.githubusercontent.com/LCOGT/local-lco-earth-cert/refs/heads/main/tls.yaml
+        kubectl apply --server-side -f https://raw.githubusercontent.com/LCOGT/local-lco-earth-cert/refs/heads/main/tls.yaml
       '';
     };
   };
