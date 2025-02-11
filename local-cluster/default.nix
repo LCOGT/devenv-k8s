@@ -59,11 +59,13 @@ in {
       local-cluster-nginx-ingress-up.exec = ''
         set -ex -o pipefail
         kustomize build "${./ingress-nginx}" | kubectl apply -f -
+        kubectl apply -f "${./configmap-coredns.yaml}"
       '';
 
       local-cluster-nginx-ingress-down.exec = ''
         set -ex -o pipefail
         kustomize build "${./ingress-nginx}" | kubectl delete -f -
+        kubectl delete -f "${./configmap-coredns.yaml}"
       '';
 
       local-cluster-k8s-dashboard-up.exec = ''
