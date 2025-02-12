@@ -46,11 +46,9 @@
         config.devenv.shells.default = {
 
           # use direnv without --impure
-          devenv.root =
-            let
-              devenvRootFileContent = builtins.readFile inputs.devenv-root.outPath;
-            in
-            pkgs.lib.mkIf (devenvRootFileContent != "") devenvRootFileContent;
+          devenv.root = let
+            devenvRootFileContent = builtins.readFile inputs.devenv-root.outPath;
+          in pkgs.lib.mkIf (devenvRootFileContent != "") devenvRootFileContent;
 
           # setup local development cluster
           devenv-k8s.local-cluster.enable = true;
