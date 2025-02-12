@@ -3,80 +3,101 @@ let
   cfg = config.devenv-k8s.local-cluster;
 in {
   options.devenv-k8s.local-cluster = {
-    enable = lib.mkEnableOption "Setup the local development K8s cluster";
+    enable = lib.mkEnableOption "Enable the local development K8s cluster";
+    setup.disable = lib.mkEnableOption "Disable setting up the cluster automatically after entering the development shell.";
   };
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enable (lib.mkMerge [
 
-    enterShell = ''
-      export KUBECONFIG=~/.kube/config-devenv-k8s
-      local-cluster-up || exit 1
+    {
+      enterShell = lib.mkBefore ''
+        export KUBECONFIG=~/.kube/config-devenv-k8s
+        echo "KUBECONFIG=$KUBECONFIG"
+      '';
 
-      echo
-      echo "K8s dashboard is running at https://k8s.local.lco.earth"
-      echo
-    '';
+      scripts = {
+        devenv-k8s-cluster-info.exec = ''
+          kubectl cluster-info
+          echo
+          echo "K8s dashboard is running at https://k8s.local.lco.earth"
+          echo
+        '';
 
-    tasks = {
-      "devenv-k8s:local-cluster:setupNginxIngress" = {
-        exec = "local-cluster-nginx-ingress-up";
-        before = [ "devenv:enterShell" ];
+        devenv-k8s-cluster-up-only.exec = ''
+          set -ex
+          ctlptl apply -f "${./local-cluster-registry.yaml}" -f "${./local-cluster.yaml}"
+        '';
+
+        devenv-k8s-cluster-up.exec = ''
+          set -ex
+          devenv-k8s-cluster-up-only
+          devenv-k8s-cluster-nginx-ingress-up
+          devenv-k8s-cluster-dashboard-up
+          devenv-k8s-cluster-update-local-lco-earth-cert
+
+          devenv-k8s-cluster-info
+        '';
+
+        devenv-k8s-cluster-down.exec = ''
+          set -ex
+          ctlptl delete -f "${./local-cluster.yaml}"
+        '';
+
+        devenv-k8s-cluster-reg-down.exec = ''
+          set -ex
+          ctlptl delete -f "${./local-cluster-registry.yaml}"
+        '';
+
+        devenv-k8s-cluster-nginx-ingress-up.exec = ''
+          set -ex -o pipefail
+          kustomize build "${./ingress-nginx}" | kubectl apply --server-side -f -
+          kubectl apply --server-side --force-conflicts -f "${./configmap-coredns.yaml}"
+        '';
+
+        devenv-k8s-cluster-nginx-ingress-down.exec = ''
+          set -ex -o pipefail
+          kustomize build "${./ingress-nginx}" | kubectl delete -f -
+          kubectl delete -f "${./configmap-coredns.yaml}"
+        '';
+
+        devenv-k8s-cluster-dashboard-up.exec = ''
+          set -ex -o pipefail
+          kustomize build "${./dash}" | kubectl apply --server-side -f -
+        '';
+
+        devenv-k8s-cluster-dashboard-down.exec = ''
+          set -ex -o pipefail
+          kustomize build "${./dash}" | kubectl delete -f -
+        '';
+
+        devenv-k8s-cluster-update-local-lco-earth-cert.exec = ''
+          set -ex
+          kubectl apply --server-side -f https://raw.githubusercontent.com/LCOGT/local-lco-earth-cert/refs/heads/main/tls.yaml
+        '';
       };
+    }
 
-      "devenv-k8s:local-cluster:updateLocalLcoEarthCert" = {
-        exec = "local-cluster-update-local-lco-earth-cert";
-        before = [ "devenv-k8s:local-cluster:setupNginxIngress" ];
+    (lib.mkIf (!cfg.setup.disable) {
+      enterShell = ''
+        devenv-k8s-cluster-up-only || exit 1
+        devenv-k8s-cluster-info
+      '';
+
+      tasks = {
+        "devenv-k8s:cluster:setupNginxIngress" = {
+          exec = "devenv-k8s-cluster-nginx-ingress-up";
+          before = [ "devenv:enterShell" ];
+        };
+
+        "devenv-k8s:cluster:updateLocalLcoEarthCert" = {
+          exec = "devenv-k8s-cluster-update-local-lco-earth-cert";
+          before = [ "devenv-k8s:cluster:setupNginxIngress" ];
+        };
+
+        "devenv-k8s:cluster:setupK8sDashboard" = {
+          exec = "devenv-k8s-cluster-dashboard-up";
+          before = [ "devenv-k8s:cluster:setupNginxIngress" ];
+        };
       };
-
-      "devenv-k8s:local-cluster:setupK8sDashboard" = {
-        exec = "local-cluster-k8s-dashboard-up";
-        before = [ "devenv-k8s:local-cluster:setupNginxIngress" ];
-      };
-
-    };
-
-    scripts = {
-      local-cluster-up.exec = ''
-        set -ex
-        ctlptl apply -f "${./local-cluster-registry.yaml}" -f "${./local-cluster.yaml}"
-        kubectl cluster-info
-      '';
-
-      local-cluster-down.exec = ''
-        set -ex
-        ctlptl delete -f "${./local-cluster.yaml}"
-      '';
-
-      local-cluster-reg-down.exec = ''
-        set -ex
-        ctlptl delete -f "${./local-cluster-registry.yaml}"
-      '';
-
-      local-cluster-nginx-ingress-up.exec = ''
-        set -ex -o pipefail
-        kustomize build "${./ingress-nginx}" | kubectl apply --server-side -f -
-        kubectl apply --server-side --force-conflicts -f "${./configmap-coredns.yaml}"
-      '';
-
-      local-cluster-nginx-ingress-down.exec = ''
-        set -ex -o pipefail
-        kustomize build "${./ingress-nginx}" | kubectl delete -f -
-        kubectl delete -f "${./configmap-coredns.yaml}"
-      '';
-
-      local-cluster-k8s-dashboard-up.exec = ''
-        set -ex -o pipefail
-        kustomize build "${./dash}" | kubectl apply --server-side -f -
-      '';
-
-      local-cluster-k8s-dashboard-down.exec = ''
-        set -ex -o pipefail
-        kustomize build "${./dash}" | kubectl delete -f -
-      '';
-
-      local-cluster-update-local-lco-earth-cert.exec = ''
-        set -ex
-        kubectl apply --server-side -f https://raw.githubusercontent.com/LCOGT/local-lco-earth-cert/refs/heads/main/tls.yaml
-      '';
-    };
-  };
+    })
+  ]);
 }
