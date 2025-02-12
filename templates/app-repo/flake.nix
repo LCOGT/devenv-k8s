@@ -2,17 +2,18 @@
   description = "Description for the project";
 
   inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    devenv-k8s.url = "github:LCOGT/devenv-k8s/v1";
+
+    nixpkgs.follows = "devenv-k8s/nixpkgs";
+    flake-parts.follows = "devenv-k8s/flake-parts";
+
     devenv-root = {
       url = "file+file:///dev/null";
       flake = false;
     };
 
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    devenv-k8s.url = "github:LCOGT/devenv-k8s";
-
-    nixpkgs.follows = "devenv-k8s/nixpkgs";
-    flake-parts.follows = "devenv-k8s/flake-parts";
   };
 
   nixConfig = {
