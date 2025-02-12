@@ -7,7 +7,7 @@ A reusable [devenv](https://devenv.sh/) w/ common tools needed for Kubernetes
 For a quick one-off shell with all the tools:
 
 ```shell
-nix develop github:LCOGT/devenv-k8s --impure
+nix develop github:LCOGT/devenv-k8s/v1 --impure
 ```
 
 ### Import
@@ -20,7 +20,7 @@ Assuming you are using flake-parts, add the following to your `flake.nix`:
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-+   devenv-k8s.url = "github:LCOGT/devenv-k8s";
++   devenv-k8s.url = "github:LCOGT/devenv-k8s/v1";
   };
 
   outputs = inputs@{ flake-parts, ... }:
