@@ -4,9 +4,6 @@ let
 in {
   options.devenv-k8s.local-cluster = {
     enable = lib.mkEnableOption "Setup the local development K8s cluster";
-    dashboard = {
-      disable = lib.mkEnableOption "Disable K8s dashboard";
-    };
   };
   config = lib.mkIf cfg.enable {
 
@@ -14,11 +11,9 @@ in {
       export KUBECONFIG=~/.kube/config-devenv-k8s
       local-cluster-up || exit 1
 
-      ${if !cfg.dashboard.disable then ''
-        echo ""
-        echo "K8s dashboard running at https://k8s.local.lco.earth"
-        echo ""
-      '' else ""}
+      echo
+      echo "K8s dashboard is running at https://k8s.local.lco.earth"
+      echo
     '';
 
     tasks = {
@@ -27,12 +22,12 @@ in {
         before = [ "devenv:enterShell" ];
       };
 
-      "devenv-k8s:local-cluster:updateLocalLcoEarthCert" = lib.mkIf (!cfg.dashboard.disable) {
+      "devenv-k8s:local-cluster:updateLocalLcoEarthCert" = {
         exec = "local-cluster-update-local-lco-earth-cert";
         before = [ "devenv-k8s:local-cluster:setupNginxIngress" ];
       };
 
-      "devenv-k8s:local-cluster:setupK8sDashboard" = lib.mkIf (!cfg.dashboard.disable) {
+      "devenv-k8s:local-cluster:setupK8sDashboard" = {
         exec = "local-cluster-k8s-dashboard-up";
         before = [ "devenv-k8s:local-cluster:setupNginxIngress" ];
       };
