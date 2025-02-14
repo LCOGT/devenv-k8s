@@ -50,6 +50,11 @@ in {
         devenv-k8s-cluster-nginx-ingress-up.exec = ''
           set -ex -o pipefail
           kustomize build "${./ingress-nginx}" | kubectl apply --server-side -f -
+
+          # Wait for it to to ready (more or less)
+          kubectl -n ingress-nginx wait --for=condition=Complete job/ingress-nginx-admission-create job/ingress-nginx-admission-patch
+          kubectl -n ingress-nginx wait --for='jsonpath={.subsets[].addresses}' ep/ingress-nginx-controller-admission
+
           kubectl apply --server-side --force-conflicts -f "${./configmap-coredns.yaml}"
         '';
 
