@@ -28,12 +28,11 @@ in {
         '';
 
         devenv-k8s-cluster-up.exec = ''
-          set -ex
+          set -e
           devenv-k8s-cluster-up-only
           devenv-k8s-cluster-nginx-ingress-up
           devenv-k8s-cluster-dashboard-up
           devenv-k8s-cluster-update-local-lco-earth-cert
-
           devenv-k8s-cluster-info
         '';
 
@@ -52,8 +51,9 @@ in {
           kustomize build "${./ingress-nginx}" | kubectl apply --server-side -f -
 
           # Wait for it to to ready (more or less)
-          kubectl -n ingress-nginx wait --for=condition=Complete job/ingress-nginx-admission-create job/ingress-nginx-admission-patch
-          kubectl -n ingress-nginx wait --for='jsonpath={.subsets[].addresses}' ep/ingress-nginx-controller-admission
+          kubectl -n ingress-nginx wait --for=condition=Complete --timeout=60s job/ingress-nginx-admission-create
+          kubectl -n ingress-nginx wait --for=condition=Complete --timeout=60s job/ingress-nginx-admission-patch
+          kubectl -n ingress-nginx wait --for='jsonpath={.subsets[].addresses}' --timeout=60s ep/ingress-nginx-controller-admission
 
           kubectl apply --server-side --force-conflicts -f "${./configmap-coredns.yaml}"
         '';
