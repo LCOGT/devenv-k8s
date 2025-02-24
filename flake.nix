@@ -78,6 +78,8 @@
         devenv.shells.default = {
 
           #devenv-k8s.local-cluster.enable = true;
+          #devenv-k8s.deploy.staging.enable = true;
+          #devenv-k8s.deploy.prod.enable = true;
 
           devenv.root =
             let

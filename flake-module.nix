@@ -28,7 +28,7 @@ in
 
       imports = [
         ./skaffold-builder.nix
-        ./cd.nix
+        ./deploy.nix
         ./local-cluster
       ];
 
@@ -52,6 +52,14 @@ in
       enterShell = ''
         export SHELL=${pkgs.bashInteractive}/bin/bash
       '';
+
+      scripts.kustomize-build-manifest.exec = ''
+        set -ex
+        mkdir -p .build
+        kustomize build -o .build/manifest.yaml
+      '';
+
+
     };
   };
 }
