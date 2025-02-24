@@ -43,6 +43,7 @@ in
         kustomize
         pkgs.jq
         pkgs.ctlptl
+        pkgs.copier
       ] ++ localFlake.withSystem system ({self', ...}: [
         self'.packages.kpt
         self'.packages.octopilot
