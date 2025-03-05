@@ -4,7 +4,7 @@ let
 in {
   options.devenv-k8s.local-cluster = {
     enable = lib.mkEnableOption "Enable the local development K8s cluster";
-    setup.disable = lib.mkEnableOption "Disable setting up the cluster automatically after entering the development shell.";
+    setup.enable = lib.mkEnableOption "Setup development cluster automatically after entering the development shell.";
   };
   config = lib.mkIf cfg.enable (lib.mkMerge [
 
@@ -81,7 +81,15 @@ in {
       };
     }
 
-    (lib.mkIf (!cfg.setup.disable) {
+    (lib.mkIf (!cfg.setup.enable) {
+      enterShell = ''
+        echo
+        echo "Skipped setting up development K8s cluster. To set it up run: devenv-k8s-cluster-up"
+        echo
+      '';
+    })
+
+    (lib.mkIf (cfg.setup.enable) {
       enterShell = ''
         devenv-k8s-cluster-up-only || exit 1
         devenv-k8s-cluster-info
