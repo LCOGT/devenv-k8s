@@ -32,10 +32,6 @@
       inputs.flake-parts.follows = "flake-parts";
     };
 
-    deploy-repo-template =  {
-      url = "git+https://github.com/LCOGT/deploy-repo-template.git";
-      flake = false;
-    };
   };
 
   nixConfig = {
@@ -105,11 +101,8 @@
             '';
           };
 
-          deploy-repo = {
-            path = inputs.deploy-repo-template.outPath;
-            description = "GitOps deploy repo";
-          };
         };
       };
     });
+
 }
