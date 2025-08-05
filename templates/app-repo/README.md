@@ -6,6 +6,6 @@ More information about this app.
 
 ## Development
 
-## Kuberentes
+### Kuberentes
 
 See [DEVELOPMENT_K8s.md](./DEVELOPMENT_K8s.md)
