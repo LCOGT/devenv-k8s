@@ -44,7 +44,7 @@ in {
         # they are removed from that file.
         no-op = {
           enable = true;
-          name = "No Op";
+          name = "No Op (this does nothing)";
           pass_filenames = false;
           raw.always_run = true;
           entry = "true";
