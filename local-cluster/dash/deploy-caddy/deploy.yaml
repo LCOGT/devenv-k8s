@@ -34,6 +34,10 @@ spec:
                   optional: false
                   key: token
                   name: dash-user-token
+            - name: HEADLAMP_SVC_HOSTNAME
+              value: headlamp
+            - name: HEADLAMP_SVC_PORT
+              value: "80"
           ports:
             - name: http
               containerPort: 80

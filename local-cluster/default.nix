@@ -47,7 +47,10 @@ in {
         '';
 
         devenv-k8s-cluster-nginx-ingress-up.exec = ''
+          echo "Setting up nginx-ingress"
+
           set -ex -o pipefail
+
           kustomize build "${./ingress-nginx}" | kubectl apply --server-side -f -
 
           # Wait for it to to ready (more or less)
@@ -65,8 +68,14 @@ in {
         '';
 
         devenv-k8s-cluster-dashboard-up.exec = ''
+          echo "Setting up K8s dashboard"
+
           set -ex -o pipefail
+
           kustomize build "${./dash}" | kubectl apply --server-side -f -
+          kubectl -n dash wait --for='jsonpath={.subsets[].addresses}' --timeout=60s ep/caddy
+          kubectl -n dash wait --for='jsonpath={.subsets[].addresses}' --timeout=60s ep/headlamp
+          kubectl -n dash wait --for='jsonpath={.status.loadBalancer.ingress}' --timeout=30s ing/dash
         '';
 
         devenv-k8s-cluster-dashboard-down.exec = ''

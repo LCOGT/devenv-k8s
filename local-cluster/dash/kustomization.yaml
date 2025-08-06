@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
   - ./ns/
-  - ./helm/
+  - ./headlamp.yaml
   - ./sa.yaml
   - ./deploy-caddy/
   - ./svc-caddy/
@@ -15,3 +15,25 @@ configMapGenerator:
   - name: caddy-config
     files:
       - Caddyfile
+
+replacements:
+  - source:
+      kind: Service
+      name: headlamp
+      fieldPath: metadata.name
+    targets:
+      - select:
+          kind: Deployment
+          name: caddy
+        fieldPaths:
+          - spec.template.spec.containers.[name=default].env.[name=HEADLAMP_SVC_HOSTNAME].value
+  - source:
+      kind: Service
+      name: headlamp
+      fieldPath: spec.ports.0.port
+    targets:
+      - select:
+          kind: Deployment
+          name: caddy
+        fieldPaths:
+          - spec.template.spec.containers.[name=default].env.[name=HEADLAMP_SVC_PORT].value

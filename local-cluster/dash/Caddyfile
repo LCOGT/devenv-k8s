@@ -1,9 +1,6 @@
 :80 {
-  reverse_proxy https://dash-kong-proxy {
-    transport http {
-      tls_insecure_skip_verify
-    }
+  reverse_proxy {env.HEADLAMP_SVC_HOSTNAME}:{env.HEADLAMP_SVC_PORT} {
     header_up Host {upstream_hostport}
-    header_up Authorization "Bearer {$DASH_USER_TOKEN}"
+    header_up Authorization "Bearer {env.DASH_USER_TOKEN}"
   }
 }
