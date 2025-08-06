@@ -2,7 +2,6 @@
 {
   config = {
     scripts.skaffold-builder-buildx.exec = ''
-      set -ex
 
       args=""
 
@@ -16,7 +15,17 @@
         args+="--platform $PLATFORMS "
       fi
 
-      docker buildx build "$BUILD_CONTEXT" --tag $IMAGE $args $SKAFFOLD_BUILDX_ARGS "$@"
+      if docker buildx > /dev/null 2>&1; then
+        buildx_cmd="docker buildx"
+      elif buildx > /dev/null 2>&1; then
+        buildx_cmd="buildx"
+      else
+        echo "buildx not found"
+        exit 1
+      fi
+
+      set -ex
+      $buildx_cmd build "$BUILD_CONTEXT" --tag $IMAGE $args $SKAFFOLD_BUILDX_ARGS "$@"
     '';
   };
 }
