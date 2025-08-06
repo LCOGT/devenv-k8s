@@ -6,7 +6,7 @@ registry: devenv-k8s
 kindV1Alpha4Cluster:
   nodes:
     - role: control-plane
-      image: "kindest/node:v1.26.15@sha256:c79602a44b4056d7e48dc20f7504350f1e87530fe953428b792def00bc1076dd"
+      image: "kindest/node:v1.28.15@sha256:a7c05c7ae043a0b8c818f5a06188bc2c4098f6cb59ca7d1856df00375d839251"
       extraPortMappings:
         - containerPort: 30080
           hostPort: 80
