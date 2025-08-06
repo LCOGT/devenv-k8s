@@ -32,7 +32,6 @@ in {
           devenv-k8s-cluster-up-only
           devenv-k8s-cluster-nginx-ingress-up
           devenv-k8s-cluster-dashboard-up
-          devenv-k8s-cluster-update-local-lco-earth-cert
           devenv-k8s-cluster-info
         '';
 
@@ -85,7 +84,7 @@ in {
 
         devenv-k8s-cluster-update-local-lco-earth-cert.exec = ''
           set -ex
-          kubectl apply --server-side -f https://raw.githubusercontent.com/LCOGT/local-lco-earth-cert/refs/heads/main/tls.yaml
+          kubectl apply --server-side --namespace ingress-nginx -f https://raw.githubusercontent.com/LCOGT/local-lco-earth-cert/refs/heads/main/tls.yaml
         '';
       };
     }
@@ -108,11 +107,6 @@ in {
         "devenv-k8s:cluster:setupNginxIngress" = {
           exec = "devenv-k8s-cluster-nginx-ingress-up";
           before = [ "devenv:enterShell" ];
-        };
-
-        "devenv-k8s:cluster:updateLocalLcoEarthCert" = {
-          exec = "devenv-k8s-cluster-update-local-lco-earth-cert";
-          before = [ "devenv-k8s:cluster:setupNginxIngress" ];
         };
 
         "devenv-k8s:cluster:setupK8sDashboard" = {

@@ -23,7 +23,7 @@ helmCharts:
           # Chart values go here
           controller:
             extraArgs:
-              default-ssl-certificate: default/local-lco-earth-tls
+              default-ssl-certificate: ingress-nginx/local-lco-earth-tls
             service:
               type: NodePort
               externalTrafficPolicy: Local

@@ -1,0 +1,37 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/master-standalone/cronjob-batch-v1.json
+apiVersion: batch/v1
+kind: CronJob
+metadata: # kpt-merge: /example
+  name: update-local-lco-earth-cert
+  labels:
+    app.kubernetes.io/component: update-local-lco-earth-cert
+  annotations:
+    internal.kpt.dev/upstream-identifier: 'batch|CronJob|default|example'
+spec:
+  schedule: "@hourly"
+  jobTemplate:
+    spec:
+      backoffLimit: 3
+      template:
+        spec:
+          serviceAccount: update-cert
+          restartPolicy: Never
+          containers:
+            - name: default
+              image: "bitnami/kubectl:latest"
+              command:
+                - /bin/bash
+                - -cex
+                - |-
+                  kubectl apply --server-side --namespace "$POD_NAMESPACE" -f https://raw.githubusercontent.com/LCOGT/local-lco-earth-cert/refs/heads/main/tls.yaml
+              env:
+                - name: POD_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+        metadata:
+          labels:
+            app.kubernetes.io/component: update-local-lco-earth-cert
+    metadata:
+      labels:
+        app.kubernetes.io/component: update-local-lco-earth-cert

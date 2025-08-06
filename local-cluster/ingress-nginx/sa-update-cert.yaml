@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: update-cert
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: update-cert
+rules:
+- apiGroups:
+    - ""
+  resources:
+    - secrets
+  resourceNames:
+    - local-lco-earth-tls
+  verbs:
+    - get
+    - list
+    - watch
+    - create
+    - update
+    - patch
+    - delete
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: update-cert
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: update-cert
+subjects:
+  - kind: ServiceAccount
+    name: update-cert

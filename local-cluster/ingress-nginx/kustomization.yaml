@@ -4,5 +4,8 @@ kind: Kustomization
 resources:
    - ./ns/
    - ./helm/
+   - https://raw.githubusercontent.com/LCOGT/local-lco-earth-cert/refs/heads/main/tls.yaml
+   - ./sa-update-cert.yaml
+   - ./cronjob-update-local-lco-earth-cert/
 
 namespace: ingress-nginx
