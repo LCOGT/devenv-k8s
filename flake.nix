@@ -21,7 +21,7 @@
     };
 
     skaffold = {
-      url = "github:jashandeep-sohi/skaffold";
+      url = "github:LCOGT/skaffold/fix/multi-module-status";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
