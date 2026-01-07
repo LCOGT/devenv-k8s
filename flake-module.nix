@@ -15,6 +15,9 @@ in
   ];
 
   perSystem = { system, pkgs, ... }: {
+    packages = {
+      copier = pkgs.copier;
+    };
 
     devenv.shells.default = let
       kustomize = pkgs.kustomize.overrideAttrs (prevAttrs: {
