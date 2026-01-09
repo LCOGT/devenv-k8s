@@ -21,7 +21,7 @@
     };
 
     skaffold = {
-      url = "github:LCOGT/skaffold/fix/multi-module-status";
+      url = "github:LCOGT/skaffold/release/v2.17";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
