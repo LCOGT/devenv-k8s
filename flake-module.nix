@@ -50,7 +50,6 @@ in
       ] ++ localFlake.withSystem system ({self', ...}: [
         self'.packages.kpt
         self'.packages.octopilot
-        self'.packages.skaffold
       ]);
 
       enterShell = ''
@@ -62,6 +61,14 @@ in
         mkdir -p .build
         kustomize build -o .build/manifest.yaml
       '';
+
+      scripts.skaffold.exec = localFlake.withSystem system({self', ...}: ''
+        pushd "$DEVENV_ROOT" > /dev/null
+        ${self'.packages.skaffold}/bin/skaffold "$@"
+        ret=$?
+        popd > /dev/null
+        exit $ret
+      '');
 
 
     };
