@@ -49,7 +49,7 @@ in addition to any project specific ones.
 For a new project you can simply use one of the provided templates to get started:
 
 ```sh
-nix flake init -t github:LCOGT/devenv-k8s#app-repo
+nix flake init -t github:LCOGT/devenv-k8s#flake-parts
 ```
 
 ### Updates

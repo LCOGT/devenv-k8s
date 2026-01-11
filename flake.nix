@@ -89,9 +89,9 @@
       flake = {
         templates = {
 
-          app-repo = {
-            path = ./templates/app-repo;
-            description = "Application source repo";
+          flake-parts = {
+            path = ./templates/flake-parts;
+            description = "Example showcasing usage with flake-parts";
             welcomeText = ''
               Add the following to `.gitignore`:
 
