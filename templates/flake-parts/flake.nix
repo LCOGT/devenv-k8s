@@ -48,7 +48,7 @@
             devenvRootFileContent = builtins.readFile inputs.devenv-root.outPath;
           in pkgs.lib.mkIf (devenvRootFileContent != "") devenvRootFileContent;
 
-          # setup local development cluster
+          # setup commands for setting up local development cluster
           devenv-k8s.local-cluster.enable = true;
 
           # https://devenv.sh/packages/
