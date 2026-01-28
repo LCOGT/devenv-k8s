@@ -69,6 +69,7 @@
           kpt = inputs'.kpt.packages.default;
           octopilot = inputs'.octopilot.packages.default;
           skaffold = inputs'.skaffold.packages.default;
+          gh = pkgs.gh;
         };
 
         devenv.shells.default = {
