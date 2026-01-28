@@ -17,6 +17,7 @@ in
   perSystem = { system, pkgs, ... }: {
     packages = {
       copier = pkgs.copier;
+      kustomize = pkgs.kustomize;
     };
 
     devenv.shells.default = let
