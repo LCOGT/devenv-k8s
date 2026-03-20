@@ -3,7 +3,7 @@
 # https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#prerequisites
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
-metadata:
+metadata: # kpt-merge: /ingress-nginx-admission
   labels:
     helm.sh/chart: ingress-nginx-4.12.0
     app.kubernetes.io/name: ingress-nginx
@@ -13,6 +13,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: admission-webhook
   name: ingress-nginx-admission
+  annotations:
+    internal.kpt.dev/upstream-identifier: 'admissionregistration.k8s.io|ValidatingWebhookConfiguration|default|ingress-nginx-admission'
 webhooks:
 - name: validate.nginx.ingress.kubernetes.io
   matchPolicy: Equivalent
@@ -40,7 +42,7 @@ webhooks:
 # Source: ingress-nginx/templates/controller-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
-metadata:
+metadata: # kpt-merge: ingresss-nginx/ingress-nginx-controller
   labels:
     helm.sh/chart: ingress-nginx-4.12.0
     app.kubernetes.io/name: ingress-nginx
@@ -51,6 +53,8 @@ metadata:
     app.kubernetes.io/component: controller
   name: ingress-nginx-controller
   namespace: ingresss-nginx
+  annotations:
+    internal.kpt.dev/upstream-identifier: 'apps|Deployment|ingresss-nginx|ingress-nginx-controller'
 spec:
   selector:
     matchLabels:
@@ -166,12 +170,13 @@ spec:
 # Source: ingress-nginx/templates/admission-webhooks/job-patch/job-createSecret.yaml
 apiVersion: batch/v1
 kind: Job
-metadata:
+metadata: # kpt-merge: ingresss-nginx/ingress-nginx-admission-create
   name: ingress-nginx-admission-create
   namespace: ingresss-nginx
   annotations:
     helm.sh/hook: pre-install,pre-upgrade
     helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+    internal.kpt.dev/upstream-identifier: 'batch|Job|ingresss-nginx|ingress-nginx-admission-create'
   labels:
     helm.sh/chart: ingress-nginx-4.12.0
     app.kubernetes.io/name: ingress-nginx
@@ -226,12 +231,13 @@ spec:
 # Source: ingress-nginx/templates/admission-webhooks/job-patch/job-patchWebhook.yaml
 apiVersion: batch/v1
 kind: Job
-metadata:
+metadata: # kpt-merge: ingresss-nginx/ingress-nginx-admission-patch
   name: ingress-nginx-admission-patch
   namespace: ingresss-nginx
   annotations:
     helm.sh/hook: post-install,post-upgrade
     helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+    internal.kpt.dev/upstream-identifier: 'batch|Job|ingresss-nginx|ingress-nginx-admission-patch'
   labels:
     helm.sh/chart: ingress-nginx-4.12.0
     app.kubernetes.io/name: ingress-nginx
@@ -288,7 +294,7 @@ spec:
 # Source: ingress-nginx/templates/controller-ingressclass.yaml
 apiVersion: networking.k8s.io/v1
 kind: IngressClass
-metadata:
+metadata: # kpt-merge: /nginx
   labels:
     helm.sh/chart: ingress-nginx-4.12.0
     app.kubernetes.io/name: ingress-nginx
@@ -298,13 +304,15 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: controller
   name: nginx
+  annotations:
+    internal.kpt.dev/upstream-identifier: 'networking.k8s.io|IngressClass|default|nginx'
 spec:
   controller: k8s.io/ingress-nginx
 ---
 # Source: ingress-nginx/templates/clusterrole.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
-metadata:
+metadata: # kpt-merge: /ingress-nginx
   labels:
     helm.sh/chart: ingress-nginx-4.12.0
     app.kubernetes.io/name: ingress-nginx
@@ -313,6 +321,8 @@ metadata:
     app.kubernetes.io/part-of: ingress-nginx
     app.kubernetes.io/managed-by: Helm
   name: ingress-nginx
+  annotations:
+    internal.kpt.dev/upstream-identifier: 'rbac.authorization.k8s.io|ClusterRole|default|ingress-nginx'
 rules:
 - apiGroups:
   - ""
@@ -388,11 +398,12 @@ rules:
 # Source: ingress-nginx/templates/admission-webhooks/job-patch/clusterrole.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
-metadata:
+metadata: # kpt-merge: /ingress-nginx-admission
   name: ingress-nginx-admission
   annotations:
     helm.sh/hook: pre-install,pre-upgrade,post-install,post-upgrade
     helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+    internal.kpt.dev/upstream-identifier: 'rbac.authorization.k8s.io|ClusterRole|default|ingress-nginx-admission'
   labels:
     helm.sh/chart: ingress-nginx-4.12.0
     app.kubernetes.io/name: ingress-nginx
@@ -413,7 +424,7 @@ rules:
 # Source: ingress-nginx/templates/clusterrolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
-metadata:
+metadata: # kpt-merge: /ingress-nginx
   labels:
     helm.sh/chart: ingress-nginx-4.12.0
     app.kubernetes.io/name: ingress-nginx
@@ -422,6 +433,8 @@ metadata:
     app.kubernetes.io/part-of: ingress-nginx
     app.kubernetes.io/managed-by: Helm
   name: ingress-nginx
+  annotations:
+    internal.kpt.dev/upstream-identifier: 'rbac.authorization.k8s.io|ClusterRoleBinding|default|ingress-nginx'
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -434,11 +447,12 @@ subjects:
 # Source: ingress-nginx/templates/admission-webhooks/job-patch/clusterrolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
-metadata:
+metadata: # kpt-merge: /ingress-nginx-admission
   name: ingress-nginx-admission
   annotations:
     helm.sh/hook: pre-install,pre-upgrade,post-install,post-upgrade
     helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+    internal.kpt.dev/upstream-identifier: 'rbac.authorization.k8s.io|ClusterRoleBinding|default|ingress-nginx-admission'
   labels:
     helm.sh/chart: ingress-nginx-4.12.0
     app.kubernetes.io/name: ingress-nginx
@@ -459,7 +473,7 @@ subjects:
 # Source: ingress-nginx/templates/controller-role.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
-metadata:
+metadata: # kpt-merge: ingresss-nginx/ingress-nginx
   labels:
     helm.sh/chart: ingress-nginx-4.12.0
     app.kubernetes.io/name: ingress-nginx
@@ -470,6 +484,8 @@ metadata:
     app.kubernetes.io/component: controller
   name: ingress-nginx
   namespace: ingresss-nginx
+  annotations:
+    internal.kpt.dev/upstream-identifier: 'rbac.authorization.k8s.io|Role|ingresss-nginx|ingress-nginx'
 rules:
 - apiGroups:
   - ""
@@ -553,12 +569,13 @@ rules:
 # Source: ingress-nginx/templates/admission-webhooks/job-patch/role.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
-metadata:
+metadata: # kpt-merge: ingresss-nginx/ingress-nginx-admission
   name: ingress-nginx-admission
   namespace: ingresss-nginx
   annotations:
     helm.sh/hook: pre-install,pre-upgrade,post-install,post-upgrade
     helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+    internal.kpt.dev/upstream-identifier: 'rbac.authorization.k8s.io|Role|ingresss-nginx|ingress-nginx-admission'
   labels:
     helm.sh/chart: ingress-nginx-4.12.0
     app.kubernetes.io/name: ingress-nginx
@@ -579,7 +596,7 @@ rules:
 # Source: ingress-nginx/templates/controller-rolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
-metadata:
+metadata: # kpt-merge: ingresss-nginx/ingress-nginx
   labels:
     helm.sh/chart: ingress-nginx-4.12.0
     app.kubernetes.io/name: ingress-nginx
@@ -590,6 +607,8 @@ metadata:
     app.kubernetes.io/component: controller
   name: ingress-nginx
   namespace: ingresss-nginx
+  annotations:
+    internal.kpt.dev/upstream-identifier: 'rbac.authorization.k8s.io|RoleBinding|ingresss-nginx|ingress-nginx'
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -602,12 +621,13 @@ subjects:
 # Source: ingress-nginx/templates/admission-webhooks/job-patch/rolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
-metadata:
+metadata: # kpt-merge: ingresss-nginx/ingress-nginx-admission
   name: ingress-nginx-admission
   namespace: ingresss-nginx
   annotations:
     helm.sh/hook: pre-install,pre-upgrade,post-install,post-upgrade
     helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+    internal.kpt.dev/upstream-identifier: 'rbac.authorization.k8s.io|RoleBinding|ingresss-nginx|ingress-nginx-admission'
   labels:
     helm.sh/chart: ingress-nginx-4.12.0
     app.kubernetes.io/name: ingress-nginx
@@ -628,7 +648,7 @@ subjects:
 # Source: ingress-nginx/templates/controller-configmap.yaml
 apiVersion: v1
 kind: ConfigMap
-metadata:
+metadata: # kpt-merge: ingresss-nginx/ingress-nginx-controller
   labels:
     helm.sh/chart: ingress-nginx-4.12.0
     app.kubernetes.io/name: ingress-nginx
@@ -639,12 +659,14 @@ metadata:
     app.kubernetes.io/component: controller
   name: ingress-nginx-controller
   namespace: ingresss-nginx
+  annotations:
+    internal.kpt.dev/upstream-identifier: '|ConfigMap|ingresss-nginx|ingress-nginx-controller'
 data: null
 ---
 # Source: ingress-nginx/templates/controller-service.yaml
 apiVersion: v1
 kind: Service
-metadata:
+metadata: # kpt-merge: ingresss-nginx/ingress-nginx-controller
   labels:
     helm.sh/chart: ingress-nginx-4.12.0
     app.kubernetes.io/name: ingress-nginx
@@ -655,6 +677,8 @@ metadata:
     app.kubernetes.io/component: controller
   name: ingress-nginx-controller
   namespace: ingresss-nginx
+  annotations:
+    internal.kpt.dev/upstream-identifier: '|Service|ingresss-nginx|ingress-nginx-controller'
 spec:
   type: NodePort
   externalTrafficPolicy: Local
@@ -682,7 +706,7 @@ spec:
 # Source: ingress-nginx/templates/controller-service-webhook.yaml
 apiVersion: v1
 kind: Service
-metadata:
+metadata: # kpt-merge: ingresss-nginx/ingress-nginx-controller-admission
   labels:
     helm.sh/chart: ingress-nginx-4.12.0
     app.kubernetes.io/name: ingress-nginx
@@ -693,6 +717,8 @@ metadata:
     app.kubernetes.io/component: controller
   name: ingress-nginx-controller-admission
   namespace: ingresss-nginx
+  annotations:
+    internal.kpt.dev/upstream-identifier: '|Service|ingresss-nginx|ingress-nginx-controller-admission'
 spec:
   type: ClusterIP
   ports:
@@ -708,7 +734,7 @@ spec:
 # Source: ingress-nginx/templates/controller-serviceaccount.yaml
 apiVersion: v1
 kind: ServiceAccount
-metadata:
+metadata: # kpt-merge: ingresss-nginx/ingress-nginx
   labels:
     helm.sh/chart: ingress-nginx-4.12.0
     app.kubernetes.io/name: ingress-nginx
@@ -719,17 +745,20 @@ metadata:
     app.kubernetes.io/component: controller
   name: ingress-nginx
   namespace: ingresss-nginx
+  annotations:
+    internal.kpt.dev/upstream-identifier: '|ServiceAccount|ingresss-nginx|ingress-nginx'
 automountServiceAccountToken: true
 ---
 # Source: ingress-nginx/templates/admission-webhooks/job-patch/serviceaccount.yaml
 apiVersion: v1
 kind: ServiceAccount
-metadata:
+metadata: # kpt-merge: ingresss-nginx/ingress-nginx-admission
   name: ingress-nginx-admission
   namespace: ingresss-nginx
   annotations:
     helm.sh/hook: pre-install,pre-upgrade,post-install,post-upgrade
     helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+    internal.kpt.dev/upstream-identifier: '|ServiceAccount|ingresss-nginx|ingress-nginx-admission'
   labels:
     helm.sh/chart: ingress-nginx-4.12.0
     app.kubernetes.io/name: ingress-nginx
