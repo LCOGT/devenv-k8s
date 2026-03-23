@@ -20,6 +20,6 @@ upstreamLock:
     commit: 9f6e44ad68465ed19e016dc07da7872759c22a0c
 pipeline:
   mutators:
-    - image: gcr.io/kpt-fn/apply-replacements:v0.1.1
+    - image: ghcr.io/kptdev/krm-functions-catalog/apply-replacements:v0.1.1
       configPath: ./fn-replacements.yaml
       name: apply-replacements
