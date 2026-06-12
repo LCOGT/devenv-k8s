@@ -429,16 +429,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1724261402,
-        "narHash": "sha256-ablZLlVPhrC5cShu2/5e80cbrR5MOMGc7Fpgf37HNbQ=",
-        "owner": "jashandeep-sohi",
+        "lastModified": 1764323479,
+        "narHash": "sha256-mSRxGO+xWFWk7wxpauWyNzlmzHgfjZM3jx2zcKzw2Ac=",
+        "owner": "dailymotion-oss",
         "repo": "octopilot",
-        "rev": "b17d9033a57525c63fc973e3d1108fefdec62210",
+        "rev": "51af0bc84a283b36f3176ddf23537e4df06edcef",
         "type": "github"
       },
       "original": {
-        "owner": "jashandeep-sohi",
-        "ref": "fix/commit-with-api",
+        "owner": "dailymotion-oss",
+        "ref": "v1.12.37",
         "repo": "octopilot",
         "type": "github"
       }

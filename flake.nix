@@ -27,7 +27,7 @@
     };
 
     octopilot = {
-      url = "github:jashandeep-sohi/octopilot/fix/commit-with-api";
+      url = "github:dailymotion-oss/octopilot/v1.12.37";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
