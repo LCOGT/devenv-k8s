@@ -429,16 +429,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1764323479,
-        "narHash": "sha256-mSRxGO+xWFWk7wxpauWyNzlmzHgfjZM3jx2zcKzw2Ac=",
-        "owner": "dailymotion-oss",
+        "lastModified": 1781285104,
+        "narHash": "sha256-XThdXz/WM+WzWNUjESFUe/mptd05ti8prpbLn2cwiqw=",
+        "owner": "LCOGT",
         "repo": "octopilot",
-        "rev": "51af0bc84a283b36f3176ddf23537e4df06edcef",
+        "rev": "2c61f942c52696fc000d69cb9c7c34ae46613c45",
         "type": "github"
       },
       "original": {
-        "owner": "dailymotion-oss",
-        "ref": "v1.12.37",
+        "owner": "LCOGT",
+        "ref": "fix/poll-pr-mergable",
         "repo": "octopilot",
         "type": "github"
       }

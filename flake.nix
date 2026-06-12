@@ -27,7 +27,7 @@
     };
 
     octopilot = {
-      url = "github:dailymotion-oss/octopilot/v1.12.37";
+      url = "github:LCOGT/octopilot/fix/poll-pr-mergable";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
